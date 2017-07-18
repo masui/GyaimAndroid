@@ -72,23 +72,16 @@ public class LocalDictTest {
     public void 検索テスト(){
         String 変換例リスト[][] = {
             {"kangae", "考える"},
-            {"atarashii", "新しい"}
+            {"atarashii", "新しい"},
+            {"taberaremase", "食べられません"},
+            {"sanjuusan", "三十三"}
         };
         for (String[] 変換例: 変換例リスト) {
             boolean found = false;
-            //LocalDict.search(変換例[0],new SearchTask());
             LocalDict.search(変換例[0]);
-            /*
-            assertTrue(Search.ncands > 0);
-            for(String word: Search.words){
-                if(word.equals(変換例[1])) found = true;
-            }
-            */
-
             for(Candidate candidate: Search.candidates){
                 if(candidate.word.equals(変換例[1])) found = true;
             }
-
             assertTrue(found);
         }
     }
