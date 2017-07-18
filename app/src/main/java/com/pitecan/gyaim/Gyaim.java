@@ -102,7 +102,7 @@ public class Gyaim extends InputMethodService
         
         // setCandidatesViewShown(true); // これが無いと表示されない
         
-        keyController = new KeyController(this,candView); // この場所?
+        // keyController = new KeyController(this,candView); // この場所?
         
         return candView;
     }

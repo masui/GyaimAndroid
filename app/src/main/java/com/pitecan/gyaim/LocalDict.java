@@ -146,9 +146,10 @@ public class LocalDict {
         regexp[level] = Pattern.compile("^("+top+")");
         return top;
     }
-    
+
     // ローカル辞書の接続検索
-    public static void search(String pat,SearchTask searchTask){
+    //public static void search(String pat,SearchTask searchTask){
+    public static void search(String pat,SearchTask... searchTask){
         patInit(pat,0);
         fib1 = fib2 = 1;
         generateCand(0, patInd(pat), 0, "", "", 0, searchTask); // 接続辞書を使って候補を生成
@@ -156,7 +157,8 @@ public class LocalDict {
     
     // パタンのlen文字目からのマッチを調べる
     // 接続リンクを深さ優先検索してマッチするものを候補に加えていく
-    static void generateCand(int connection, int keylink, int len, String word, String pat, int level, SearchTask searchTask){
+    //static void generateCand(int connection, int keylink, int len, String word, String pat, int level, SearchTask searchTask){
+    static void generateCand(int connection, int keylink, int len, String word, String pat, int level, SearchTask... searchTask){
         //Message.message("Gyaim","GenerateCand("+word+","+pat+","+level+")");
         wordStack[level] = word;
         patStack[level] = pat;
@@ -164,7 +166,8 @@ public class LocalDict {
         int patlen = cslength[len];
         int d = (connection != 0 ? connectionLink[connection] : keyLink[keylink]);
         for(;d >= 0 && Search.ncands < Gyaim.MAXCANDS;d = (connection != 0 ? dict.get(d).connectionLink : dict.get(d).keyLink)){
-            if(searchTask.isCancelled()) break;
+            //if(searchTask.isCancelled()) break;
+            if(searchTask.length > 0 && searchTask[0].isCancelled()) break;
             Matcher m = regexp[len].matcher(dict.get(d).pat);
             if(m.find()){
                 int matchlen = m.group(1).length();
@@ -172,7 +175,8 @@ public class LocalDict {
                     addConnectedCandidate(dict.get(d).word, dict.get(d).pat, dict.get(d).outConnection, level, matchlen);
                     // Message.message("Gyaim","ncands = " + Search.ncands + ", fib1 = " + fib1);
                     if(Search.ncands >= fib1){
-                        searchTask.progress(0); //いくつかみつかったら画面更新
+                        //searchTask.progress(0); //いくつかみつかったら画面更新
+                        if(searchTask.length > 0) searchTask[0].progress(0); //いくつかみつかったら画面更新
                         int tmp = fib1;
                         fib1 += fib2;
                         fib2 = tmp;

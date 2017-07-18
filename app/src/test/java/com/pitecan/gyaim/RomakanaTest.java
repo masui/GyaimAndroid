@@ -2,6 +2,8 @@
 // ローマ字かな変換のユニットテスト
 //
 
+package com.pitecan.gyaim;
+
 import static org.junit.Assert.*;
 import org.junit.Test;
 

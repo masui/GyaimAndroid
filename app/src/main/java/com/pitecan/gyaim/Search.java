@@ -52,6 +52,12 @@ public class Search {
         }
     }
     
+    public Search(){
+        for(int i=0;i<Gyaim.MAXCANDS;i++){
+            candidates[i] = new Candidate("","",0);
+        }
+    }
+    
     public static void reset(){
         ncands = 0;
     }

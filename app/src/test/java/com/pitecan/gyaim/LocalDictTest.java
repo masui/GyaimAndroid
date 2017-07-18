@@ -6,6 +6,9 @@
 //   - assertThat() みたいなのが使える
 // * 日本語でわかりやすくしてみたり
 //
+
+// package com.pitecan.gyaim;
+
 import static org.junit.Assert.*;
 import org.junit.Test;
 
@@ -13,9 +16,9 @@ import org.junit.Test;
 //import static org.hamcrest.Matchers.*;
 
 import com.pitecan.gyaim.LocalDict;
-import com.pitecan.gyaim.SearchTask;
+//import com.pitecan.gyaim.SearchTask;
 import com.pitecan.gyaim.Search;
-import com.pitecan.gyaim.Gyaim;
+//import com.pitecan.gyaim.Gyaim;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -23,10 +26,11 @@ import java.io.InputStream;
 import java.io.IOException;
 
 public class LocalDictTest {
-    static final String 単語辞書ファイル = "app/src/main/assets/dict.txt";
-    // static final String 単語辞書ファイル = "/Users/masui/GyaimAndroidStudio.java/app/src/main/assets/dict.txt";
+    //static final String 単語辞書ファイル = "app/src/main/assets/dict.txt";
+    static final String 単語辞書ファイル = "/Users/masui/GyaimAndroidStudio.java/app/src/main/assets/dict.txt";
 
     static LocalDict localDict;
+    static Search search;
     
     public LocalDictTest(){
         File file = new File(単語辞書ファイル);
@@ -37,6 +41,8 @@ public class LocalDictTest {
             System.out.println("辞書読出し失敗");
             e.printStackTrace();  
         }
+
+        new Search();
     }
     
     @Test
@@ -64,10 +70,17 @@ public class LocalDictTest {
         };
         for (String[] 変換例: 変換例リスト) {
             boolean found = false;
-            LocalDict.search(変換例[0],new SearchTask());
+            //LocalDict.search(変換例[0],new SearchTask());
+            LocalDict.search(変換例[0]);
+            assertTrue(Search.ncands > 0);
             for(String word: Search.words){
                 if(word.equals(変換例[1])) found = true;
             }
+            /*
+            for(Candidate candidate: Search.candidates){
+                if(candidate.word.equals(変換例[1])) found = true;
+            }
+            */
             assertTrue(found);
         }
     }
