@@ -15,6 +15,7 @@ import org.junit.Test;
 import com.pitecan.gyaim.LocalDict;
 import com.pitecan.gyaim.SearchTask;
 import com.pitecan.gyaim.Search;
+import com.pitecan.gyaim.Gyaim;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -23,6 +24,7 @@ import java.io.IOException;
 
 public class LocalDictTest {
     static final String 単語辞書ファイル = "app/src/main/assets/dict.txt";
+    // static final String 単語辞書ファイル = "/Users/masui/GyaimAndroidStudio.java/app/src/main/assets/dict.txt";
 
     static LocalDict localDict;
     
@@ -53,23 +55,20 @@ public class LocalDictTest {
             assertTrue(登録されてる);
         }
     }
-    
+
     @Test
     public void 検索テスト(){
-        localDict.search("kangae",new SearchTask());
-        assertTrue(Search.words.size() > 0);
-        boolean 考えるが検索された = false;
-        for(String word: Search.words) {
-            if(word.equals("考える")) 考えるが検索された = true;
+        String 変換例リスト[][] = {
+            {"kangae", "考える"},
+            {"atarashii", "新しい"}
+        };
+        for (String[] 変換例: 変換例リスト) {
+            boolean found = false;
+            LocalDict.search(変換例[0],new SearchTask());
+            for(String word: Search.words){
+                if(word.equals(変換例[1])) found = true;
+            }
+            assertTrue(found);
         }
-        assertTrue(考えるが検索された);
-        
-        localDict.search("atarashii",new SearchTask());
-        assertTrue(Search.words.size() > 0);
-        boolean 新しいが検索された = false;
-        for(String word: Search.words) {
-            if(word.equals("新しい")) 新しいが検索された = true;
-        }
-        assertTrue(新しいが検索された);
     }
 }

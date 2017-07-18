@@ -15,8 +15,8 @@ public class Search {
     }
     
     public static void addCandidateWithLevel(String word, String pat, int level){
-	words.add(word);
-	pats.add(pat);
-	ncands++;
+        words.add(word);
+        pats.add(pat);
+        ncands++;
     }
 }
