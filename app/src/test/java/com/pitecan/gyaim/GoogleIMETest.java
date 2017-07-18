@@ -3,9 +3,6 @@ package com.pitecan.gyaim;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
-//import static org.hamcrest.MatcherAssert.assertThat;
-//import static org.hamcrest.Matchers.*;
-
 import com.pitecan.gyaim.GoogleIME;
 import com.pitecan.gyaim.Message;
 
